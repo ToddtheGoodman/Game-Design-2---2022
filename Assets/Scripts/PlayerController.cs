@@ -20,6 +20,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Assign input for x and z 
+        moveInput.x = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+        moveInput.z = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+
+        //This moves the player
+        charCon.Move(moveInput);
+
     }
 }
