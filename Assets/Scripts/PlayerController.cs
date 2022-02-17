@@ -25,10 +25,35 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Assign input for x and z 
-        moveInput.x = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        moveInput.z = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+        Vector3 forwardMove = transform.forward * Input.GetAxis("Vertical");
+        Vector3 horizontalMove = transform.right * Input.GetAxis("Horizontal");
+        
+        // Defines moveInput
+        moveInput = forwardMove + horizontalMove;
 
+        //Fixes the subnautica issue
+        moveInput.Normalize();
+
+        // Allow us to change speed and slow down for Tim
+        moveInput = moveInput * Time.deltaTime * moveSpeed;
+        //moveInput *= Time.deltaTime * moveSpeed;
+        
+        // Sprint
+        //if (Input.GetKey(KeyCode.LeftShift))
+        //{
+         //   moveInput = Input.GetAxis("Horizontal") * Time.deltaTime * sprintSpeed;
+         //   moveInput = Input.GetAxis("Vertical") * Time.deltaTime * sprintSpeed;
+        //}
+        
+        //This moves the player
+        charCon.Move(moveInput);
+
+        CameraMovement();
+
+    }
+
+    void CameraMovement()
+    {
         //Assign input for X and Y on the Mouse
         mouseInput.x = Input.GetAxisRaw("Mouse X");
         mouseInput.y = Input.GetAxisRaw("Mouse Y");
@@ -36,17 +61,8 @@ public class PlayerController : MonoBehaviour
         //stupid 4th dimensions
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x, transform.rotation.eulerAngles.z);
         camTransform.rotation = Quaternion.Euler(camTransform.rotation.eulerAngles.x + -mouseInput.y, camTransform.rotation.eulerAngles.y, camTransform.rotation.eulerAngles.z);
-        
-        
-        // Sprint
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            moveInput.x = Input.GetAxis("Horizontal") * Time.deltaTime * sprintSpeed;
-            moveInput.z = Input.GetAxis("Vertical") * Time.deltaTime * sprintSpeed;
-        }
-
-        //This moves the player
-        charCon.Move(moveInput);
 
     }
+
+
 }
