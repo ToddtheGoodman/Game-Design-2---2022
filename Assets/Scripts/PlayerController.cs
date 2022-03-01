@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public float moveSpeed;
-    public float sprintSpeed;
+    public float moveSpeed, sprintSpeed, gravityMod, yStore;    
 
     public CharacterController charCon;
 
@@ -25,28 +24,43 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 forwardMove = transform.forward * Input.GetAxis("Vertical");
-        Vector3 horizontalMove = transform.right * Input.GetAxis("Horizontal");
+
+        //get our current Y value
+        yStore = moveInput.y;
+
+        // Assigns Vector3 variables to input
+        Vector3 forwardMove = transform.forward * Input.GetAxisRaw("Vertical");
+        Vector3 horizontalMove = transform.right * Input.GetAxisRaw("Horizontal");
         
         // Defines moveInput
         moveInput = forwardMove + horizontalMove;
 
         //Fixes the subnautica issue
-        moveInput.Normalize();
+        moveInput.Normalize();     
+        
+        
+        // to sprint or not to sprint, that is the question
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveInput = moveInput * sprintSpeed;           
+        }
+        else
+        {
+            moveInput = moveInput * moveSpeed;
+        }
 
-        // Allow us to change speed and slow down for Tim
-        moveInput = moveInput * Time.deltaTime * moveSpeed;
-        //moveInput *= Time.deltaTime * moveSpeed;
-        
-        // Sprint
-        //if (Input.GetKey(KeyCode.LeftShift))
-        //{
-         //   moveInput = Input.GetAxis("Horizontal") * Time.deltaTime * sprintSpeed;
-         //   moveInput = Input.GetAxis("Vertical") * Time.deltaTime * sprintSpeed;
-        //}
-        
+
+        //Gravity
+        moveInput.y = yStore;
+        moveInput.y += Physics.gravity.y * gravityMod * Time.deltaTime;
+
+        if (charCon.isGrounded)
+        {
+            moveInput.y = Physics.gravity.y * gravityMod;
+        }
+       
         //This moves the player
-        charCon.Move(moveInput);
+        charCon.Move(moveInput * Time.deltaTime);
 
         CameraMovement();
 
