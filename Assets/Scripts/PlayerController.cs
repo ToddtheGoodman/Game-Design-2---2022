@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public float moveSpeed, sprintSpeed, gravityMod, yStore;    
+    public float moveSpeed, sprintSpeed, gravityMod, yStore, jumpPower;    
 
     public CharacterController charCon;
 
@@ -13,7 +13,11 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 mouseInput;
 
-    public Transform camTransform;
+    public Transform camTransform, groundCheck;
+
+    public bool canJump;
+
+    public LayerMask ground;
 
     // Start is called before the first frame update
     void Start()
@@ -47,8 +51,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             moveInput = moveInput * moveSpeed;
-        }
-
+        }        
 
         //Gravity
         moveInput.y = yStore;
@@ -58,7 +61,16 @@ public class PlayerController : MonoBehaviour
         {
             moveInput.y = Physics.gravity.y * gravityMod;
         }
-       
+
+        //Check to see if you are on the ground
+        canJump = Physics.OverlapSphere(groundCheck.position, 0.25f, ground).Length > 0;
+
+        //Jump
+        if(Input.GetKeyDown(KeyCode.Space) && canJump)
+        {
+            moveInput.y = jumpPower;
+        }
+
         //This moves the player
         charCon.Move(moveInput * Time.deltaTime);
 

@@ -408,6 +408,7 @@ Transform:
   m_Children:
   - {fileID: 245557019}
   - {fileID: 963194228}
+  - {fileID: 1057221379}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -12.68, z: 0}
@@ -443,12 +444,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   sprintSpeed: 15
-  gravityMod: 1
+  gravityMod: 1.65
   yStore: 0
+  jumpPower: 7
   charCon: {fileID: 895855946}
   moveInput: {x: 0, y: 0, z: 0}
   mouseInput: {x: 0, y: 0}
   camTransform: {fileID: 963194228}
+  groundCheck: {fileID: 1057221379}
+  canJump: 0
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &936220228
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +468,7 @@ GameObject:
   - component: {fileID: 936220232}
   - component: {fileID: 936220231}
   - component: {fileID: 936220230}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,6 +648,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   printMessage: Test
+--- !u!1 &1057221378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1057221379}
+  m_Layer: 0
+  m_Name: feet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1057221379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057221378}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.999, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 895855945}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1292936805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 56de0f68d09001e49be664b4fac927d0, type: 3}
@@ -714,6 +751,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 56de0f68d09001e49be664b4fac927d0, type: 3}
       propertyPath: m_Name
       value: Mountains
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56de0f68d09001e49be664b4fac927d0, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56de0f68d09001e49be664b4fac927d0, type: 3}
