@@ -20,6 +20,8 @@ public class Pickup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            // add +1 to my scoreValue
+            UIValues.scoreValue += 1;
             Destroy(gameObject);
         }
     }
