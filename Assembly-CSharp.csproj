@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\Print.cs" />
     <Compile Include="Assets\Scripts\VariableTest.cs" />
     <Compile Include="Assets\Scripts\UIValues.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

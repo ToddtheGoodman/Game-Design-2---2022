@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
         //This moves the player
         charCon.Move(moveInput * Time.deltaTime);
 
+
         CameraMovement();
 
     }
