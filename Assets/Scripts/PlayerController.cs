@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 mouseInput;
 
-    public Transform camTransform, groundCheck;
+    public Transform camTransform, groundCheck, weaponPos;
 
     public bool canJump;
 
     public LayerMask ground;
+
+    public GameObject projectile;
 
     // Start is called before the first frame update
     void Start()
@@ -74,8 +76,8 @@ public class PlayerController : MonoBehaviour
         //This moves the player
         charCon.Move(moveInput * Time.deltaTime);
 
-
-        CameraMovement();
+        Shooting();
+        CameraMovement();        
 
     }
 
@@ -91,5 +93,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void Shooting()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Instantiate(projectile, weaponPos.position, weaponPos.rotation);
+        }
+    }
 
 }
