@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     public Transform camTransform, groundCheck, weaponPos;
 
-    public bool canJump;
+    public bool canJump, canShoot;
 
     public LayerMask ground;
 
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        canShoot = true;
     }
 
     // Update is called once per frame
@@ -95,10 +95,19 @@ public class PlayerController : MonoBehaviour
 
     void Shooting()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && UIValues.ammoValue > 0 && canShoot)
         {
             Instantiate(projectile, weaponPos.position, weaponPos.rotation);
+            UIValues.ammoValue -= 1;
+            canShoot = false;
+            StartCoroutine(shootCooldown());
         }
+    }
+
+    IEnumerator shootCooldown()
+    {
+        yield return new WaitForSeconds(.25f);
+        canShoot = true;
     }
 
 }
