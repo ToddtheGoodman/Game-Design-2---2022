@@ -35,12 +35,12 @@ public class PlatformMove : MonoBehaviour
         if (transform.position == wayPoints[wayPointIndex].position)
         {
             wayPointIndex += 1;
+            if (wayPointIndex == wayPoints.Length)
+            {
+                wayPointIndex = 0;
+            }
         }
-
-        if (transform.position == lastWayPoint.position)
-        {
-            wayPointIndex = 0;
-        }
+        
     }
 
 }
