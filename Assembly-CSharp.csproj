@@ -61,10 +61,11 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Rotate.cs" />
+    <Compile Include="Assets\Scripts\JumpPowerup.cs" />
     <Compile Include="Assets\Scripts\Print.cs" />
     <Compile Include="Assets\Scripts\VariableTest.cs" />
     <Compile Include="Assets\Scripts\UIValues.cs" />
-    <Compile Include="Assets\Scripts\JumpPowerup.cs" />
+    <Compile Include="Assets\Scripts\PlatformMove.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
